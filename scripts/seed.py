@@ -254,8 +254,11 @@ def seed() -> None:
             print(f"演示处方：新增 {seeded_rx} 张")
 
         print()
-        print("提示：数据已写入，直接打开 http://127.0.0.1:8000/ 就能用")
-        print("      想看接口文档：http://127.0.0.1:8000/docs")
+        # 不写死端口：uvicorn 可以指定 --port，写死会误导换了端口的人
+        print("提示：数据已写入。启动服务后打开首页即可（默认 8000，"
+              "用 --port 换端口时按实际端口访问）")
+        print("      启动：python -m uvicorn app.main:app --reload")
+        print("      患者界面是 /，接口文档是 /docs")
         print("      演示手机号：13800000001（患者甲）、13800000002（患者乙）")
         print("      把药房数据恢复成初始状态：python -m scripts.seed --reset-pharmacy")
     finally:
