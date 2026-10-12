@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>门诊预约 · 不知道挂哪个科，先说说哪里不舒服</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <h1>门诊预约</h1>
+  <p class="sub">海南师范大学附属医院（示例）</p>
+</header>
+
+<main>
+
+  <!-- ============ 一、分诊 ============ -->
+  <section id="view-triage" class="view">
+    <h2>哪里不舒服？</h2>
+    <p class="lead">把症状写清楚一点，比如「咳嗽三天了，还发烧」。<br>
+       不知道挂哪个科也没关系，我们来帮你找。</p>
+
+    <textarea id="symptom" rows="4" maxlength="200"
+      placeholder="例如：肚子疼，还拉肚子，有点恶心"></textarea>
+    <div class="counter"><span id="symptom-count">0</span>/200</div>
+
+    <label class="check">
+      <input type="checkbox" id="is-child">
+      <span>是 14 岁以下的小孩</span>
+    </label>
+
+    <button id="btn-triage" class="primary big">帮我找科室</button>
+
+    <div id="triage-result" class="result" hidden></div>
+
+    <p class="hint">
+      如果出现剧烈胸痛、呼吸困难、意识不清、大出血，
+      <strong>请立即到急诊科</strong>，不要在这里排队。
+    </p>
+  </section>
+
+  <!-- ============ 二、预约 ============ -->
+  <section id="view-book" class="view" hidden>
+    <!-- 第一步：选科室。
+         原来是把所有排班一次性铺出来（40 条），手机上要滚很久，
+         而且每条都长得很像，看着像数据重复。改成先选科室再看号。 -->
+    <div id="book-step1">
+      <h2>看哪个科？</h2>
+      <p class="lead">点一下科室，看这个科最近几天的号。</p>
+      <div id="dept-grid" class="dept-grid">
+        <p class="empty">正在加载科室…</p>
+      </div>
+    </div>
+
+    <!-- 第二步：看这个科的号 -->
+    <div id="book-step2" hidden>
+      <button id="btn-back-dept" class="back">← 换一个科室</button>
+      <h2 id="book-dept-name">科室</h2>
+      <p class="lead" id="book-lead">下面几位医生最近几天的号，点一下就能约。</p>
+      <div id="schedule-list" class="cards">
+        <p class="empty">正在加载号源…</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 四、取药 ============ -->
+  <section id="view-pickup" class="view" hidden>
+    <h2>取药</h2>
+    <p class="lead">输入看病时留的手机号，能看到处方和取药时间。</p>
+
+    <div class="field">
+      <label for="pickup-phone">手机号</label>
+      <input id="pickup-phone" type="tel" inputmode="numeric" maxlength="11"
+             placeholder="11 位手机号">
+    </div>
+    <button id="btn-pickup" class="primary big">查看我的处方</button>
+
+    <div id="rx-list" class="result" hidden></div>
+
+    <details class="more" id="med-detail">
+      <summary>看看药房有哪些药</summary>
+      <div class="field" style="margin-top:14px">
+        <input id="med-search" type="text" maxlength="20" placeholder="输入药名查，比如「布洛芬」">
+      </div>
+      <div id="med-list"></div>
+    </details>
+  </section>
+
+  <!-- ============ 三、我的预约 ============ -->
+  <section id="view-mine" class="view" hidden>
+    <h2>我的预约</h2>
+    <p class="lead">输入预约时填的手机号，就能看到自己的号。</p>
+
+    <div class="field">
+      <label for="my-phone">手机号</label>
+      <input id="my-phone" type="tel" inputmode="numeric" maxlength="11"
+             placeholder="11 位手机号">
+    </div>
+    <button id="btn-mine" class="primary big">查看我的预约</button>
+
+    <div id="mine-list" class="result" hidden></div>
+  </section>
+
+</main>
+
+<!-- 底部导航：三个入口，字大、只留图标位不必要 -->
+<nav class="tabbar">
+  <button class="tab active" data-view="triage"><span class="tab-t">找科室</span></button>
+  <button class="tab" data-view="book"><span class="tab-t">预约挂号</span></button>
+  <button class="tab" data-view="pickup"><span class="tab-t">取药</span></button>
+  <button class="tab" data-view="mine"><span class="tab-t">我的</span></button>
+</nav>
+
+<!-- 确认预约的弹层 -->
+<div id="sheet" class="sheet" hidden>
+  <div class="sheet-mask" data-close></div>
+  <div class="sheet-body">
+    <h3>确认预约</h3>
+    <div id="sheet-info" class="sheet-info"></div>
+
+    <div class="field">
+      <label for="p-name">就诊人姓名</label>
+      <input id="p-name" maxlength="20" placeholder="请填真实姓名">
+    </div>
+    <div class="field">
+      <label for="p-phone">手机号</label>
+      <input id="p-phone" type="tel" inputmode="numeric" maxlength="11"
+             placeholder="用来查号和接收通知">
+    </div>
+
+    <p id="sheet-error" class="error" hidden></p>
+
+    <div class="sheet-actions">
+      <button class="ghost" data-close>再想想</button>
+      <button id="btn-confirm" class="primary">确认预约</button>
+    </div>
+  </div>
+</div>
+
+<!-- 预约成功 -->
+<div id="done" class="sheet" hidden>
+  <div class="sheet-mask"></div>
+  <div class="sheet-body center">
+    <div class="ok-mark">✓</div>
+    <h3>预约成功</h3>
+    <div id="done-info" class="sheet-info"></div>
+    <p class="hint">请按预约时间提前 15 分钟到院取号。</p>
+    <button class="primary big" id="btn-done-close">知道了</button>
+  </div>
+</div>
+
+<!-- 选取药时间 -->
+<div id="pickup-sheet" class="sheet" hidden>
+  <div class="sheet-mask" data-pickup-close></div>
+  <div class="sheet-body">
+    <h3>选个取药时间</h3>
+    <p id="pickup-info" class="lead" style="margin-bottom:16px"></p>
+    <div id="pickup-slots"></div>
+    <p id="pickup-error" class="error" hidden></p>
+    <div class="sheet-actions">
+      <button class="ghost" id="btn-pickup-close">取消</button>
+    </div>
+  </div>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
