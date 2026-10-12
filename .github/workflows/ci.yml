@@ -12,7 +12,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.11", "3.12"]
+        # 3.14 是开发机上实际用的版本，一并测，免得只在本机能跑
+        python-version: ["3.11", "3.12", "3.14"]
 
     steps:
       - uses: actions/checkout@v4

@@ -1,5 +1,9 @@
 # 门诊预约与智能分诊系统
 
+[![CI](https://github.com/sharkbuster/meditriage/actions/workflows/ci.yml/badge.svg)](https://github.com/sharkbuster/meditriage/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.14-blue)](https://www.python.org/)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 一个医院挂号后端：患者描述症状 → 系统推荐科室 → 预约号源 → 取消归还号源。
 
 做这个项目主要是想把两件事讲清楚：
