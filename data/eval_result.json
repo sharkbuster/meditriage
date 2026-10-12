@@ -1,0 +1,222 @@
+{
+  "eval_file": "data\\triage_eval.csv",
+  "mode": "rule",
+  "top_k": 3,
+  "summary": {
+    "labeled_total": 96,
+    "negative_total": 8,
+    "top1": 91,
+    "top1_rate": 0.9479,
+    "top3": 96,
+    "top3_rate": 1.0,
+    "auto_count": 72,
+    "auto_accuracy": 1.0,
+    "negative_routed_to_human": 7,
+    "negative_human_rate": 0.875,
+    "per_department": {
+      "儿科": {
+        "total": 7,
+        "hit": 7
+      },
+      "内分泌科": {
+        "total": 6,
+        "hit": 4
+      },
+      "口腔科": {
+        "total": 6,
+        "hit": 6
+      },
+      "呼吸内科": {
+        "total": 7,
+        "hit": 7
+      },
+      "妇科": {
+        "total": 6,
+        "hit": 6
+      },
+      "心血管内科": {
+        "total": 6,
+        "hit": 6
+      },
+      "泌尿外科": {
+        "total": 6,
+        "hit": 6
+      },
+      "消化内科": {
+        "total": 8,
+        "hit": 7
+      },
+      "皮肤科": {
+        "total": 8,
+        "hit": 8
+      },
+      "眼科": {
+        "total": 6,
+        "hit": 6
+      },
+      "神经内科": {
+        "total": 8,
+        "hit": 7
+      },
+      "精神心理科": {
+        "total": 5,
+        "hit": 4
+      },
+      "耳鼻咽喉科": {
+        "total": 10,
+        "hit": 10
+      },
+      "骨科": {
+        "total": 7,
+        "hit": 7
+      }
+    }
+  },
+  "threshold_sweep": [
+    {
+      "threshold": 0.0,
+      "auto_count": 96,
+      "auto_accuracy": 0.9479,
+      "missed": 0,
+      "negative_caught": 0,
+      "negative_total": 8
+    },
+    {
+      "threshold": 0.05,
+      "auto_count": 89,
+      "auto_accuracy": 0.9775,
+      "missed": 7,
+      "negative_caught": 7,
+      "negative_total": 8
+    },
+    {
+      "threshold": 0.1,
+      "auto_count": 89,
+      "auto_accuracy": 0.9775,
+      "missed": 7,
+      "negative_caught": 7,
+      "negative_total": 8
+    },
+    {
+      "threshold": 0.15,
+      "auto_count": 87,
+      "auto_accuracy": 0.977,
+      "missed": 9,
+      "negative_caught": 7,
+      "negative_total": 8
+    },
+    {
+      "threshold": 0.2,
+      "auto_count": 78,
+      "auto_accuracy": 0.9744,
+      "missed": 18,
+      "negative_caught": 7,
+      "negative_total": 8
+    },
+    {
+      "threshold": 0.25,
+      "auto_count": 72,
+      "auto_accuracy": 1.0,
+      "missed": 24,
+      "negative_caught": 7,
+      "negative_total": 8
+    },
+    {
+      "threshold": 0.3,
+      "auto_count": 50,
+      "auto_accuracy": 1.0,
+      "missed": 46,
+      "negative_caught": 7,
+      "negative_total": 8
+    },
+    {
+      "threshold": 0.35,
+      "auto_count": 48,
+      "auto_accuracy": 1.0,
+      "missed": 48,
+      "negative_caught": 8,
+      "negative_total": 8
+    },
+    {
+      "threshold": 0.4,
+      "auto_count": 44,
+      "auto_accuracy": 1.0,
+      "missed": 52,
+      "negative_caught": 8,
+      "negative_total": 8
+    },
+    {
+      "threshold": 0.5,
+      "auto_count": 35,
+      "auto_accuracy": 1.0,
+      "missed": 61,
+      "negative_caught": 8,
+      "negative_total": 8
+    },
+    {
+      "threshold": 0.6,
+      "auto_count": 26,
+      "auto_accuracy": 1.0,
+      "missed": 70,
+      "negative_caught": 8,
+      "negative_total": 8
+    }
+  ],
+  "errors": [
+    {
+      "symptom": "肚子疼，一阵一阵的，还拉肚子",
+      "expected": "消化内科",
+      "predicted": "泌尿外科",
+      "candidates": [
+        "泌尿外科",
+        "消化内科",
+        "儿科"
+      ],
+      "confidence": 0.0
+    },
+    {
+      "symptom": "偏头痛好几年了，一侧一跳一跳地疼",
+      "expected": "神经内科",
+      "predicted": "泌尿外科",
+      "candidates": [
+        "泌尿外科",
+        "神经内科",
+        "骨科"
+      ],
+      "confidence": 0.0
+    },
+    {
+      "symptom": "失眠好几个月了，躺下就脑子停不下来",
+      "expected": "精神心理科",
+      "predicted": "妇科",
+      "candidates": [
+        "妇科",
+        "精神心理科",
+        "神经内科"
+      ],
+      "confidence": 0.0
+    },
+    {
+      "symptom": "脖子粗了，心跳快还怕热",
+      "expected": "内分泌科",
+      "predicted": "心血管内科",
+      "candidates": [
+        "心血管内科",
+        "内分泌科",
+        "呼吸内科"
+      ],
+      "confidence": 0.2
+    },
+    {
+      "symptom": "喝水多尿也多，人还瘦了",
+      "expected": "内分泌科",
+      "predicted": "泌尿外科",
+      "candidates": [
+        "泌尿外科",
+        "内分泌科",
+        "眼科"
+      ],
+      "confidence": 0.2
+    }
+  ]
+}
