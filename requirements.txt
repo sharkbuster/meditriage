@@ -1,0 +1,17 @@
+# ===== Python 依赖 =====
+# 版本为实际验证通过的组合（Python 3.14 / Windows 11）
+fastapi==0.143.0
+uvicorn[standard]==0.54.0
+sqlalchemy==2.1.4
+pydantic==2.14.0
+pydantic-settings==2.15.0
+httpx==0.28.1
+jieba==0.42.1
+
+# ===== 开发依赖 =====
+pytest==9.1.1
+
+# 说明：
+# - 默认分诊模式（rule）不需要任何模型相关的依赖，上面的包装完即可运行。
+# - 如果要用 PostgreSQL，额外装 psycopg[binary]。
+# - 如果要用本地大模型（triage_mode=local），需要自行安装 Ollama，不通过 pip。

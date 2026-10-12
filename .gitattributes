@@ -1,0 +1,12 @@
+# 统一换行符：避免 Windows 提交、Linux/CI 检出时出现整文件 diff 或脚本执行失败。
+# 文本文件在仓库里一律存 LF；批处理脚本保留 CRLF。
+* text=auto eol=lf
+
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# 二进制文件不做换行转换
+*.png binary
+*.jpg binary
+*.db binary
+*.xlsx binary
